@@ -48,3 +48,16 @@ if user_input:
                 st.markdown(f"**{i+1}.** {review_chunks[idx]}")
             else:
                 st.warning(f"Index {idx} out of range.")
+       
+import os
+import gdown
+
+#––– Google Drive download setup –––
+model_path = "models/sentiment_model/model.safetensors"
+file_id    = "1JFQJUxR9YF_M1P7nZroCKWtQ22cCoaTM"
+url        = f"https://drive.google.com/uc?id={file_id}"
+
+os.makedirs(os.path.dirname(model_path), exist_ok=True)
+if not os.path.exists(model_path):
+    print("Downloading model…")
+    gdown.download(url, model_path, quiet=False)
