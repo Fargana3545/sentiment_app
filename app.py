@@ -10,9 +10,9 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 # === Load Sentiment Analysis Model ===
-model_path = "sentiment_model"
+model_path = "models/sentiment_model" # ✅ updated path
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForSequenceClassification.from_pretrained(model_path, trust_remote_code=True)
+model = AutoModelForSequenceClassification.from_pretrained(model_path)
 sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
 # === Load FAISS Index and Review Chunks ===
@@ -68,7 +68,7 @@ if user_input:
         # --- Similar Review Search ---
         st.markdown("## 🔍 Top 5 Similar Reviews")
         query_vec = embed_model.encode(user_input).astype("float32").reshape(1, -1)
-        distances, indices = faiss_index.search(query_vec, k=10)  # Search more to filter later
+        distances, indices = faiss_index.search(query_vec, k=10)
 
         shown = 0
         for idx in indices[0]:
@@ -87,11 +87,16 @@ if user_input:
 if review_chunks:
     st.markdown("## 🎨 Word Cloud of Reviews")
     all_text = " ".join(review_chunks)
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
-    fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
-    ax_wc.imshow(wordcloud, interpolation='bilinear')
-    ax_wc.axis("off")
-    st.pyplot(fig_wc)
+
+    try:
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
+        fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
+        ax_wc.imshow(wordcloud, interpolation='bilinear')
+        ax_wc.axis("off")
+        st.pyplot(fig_wc)
+    except ValueError as e:
+        st.warning("⚠️ Not enough text to generate a word cloud. Please check your review data.")
+
 
 # === Clear Input Button ===
 if st.button("🧹 Clear Input"):
@@ -100,3 +105,4 @@ if st.button("🧹 Clear Input"):
 # === Footer ===
 st.markdown("---")
 st.caption("Developed with ❤️ for insightful review analysis.")
+

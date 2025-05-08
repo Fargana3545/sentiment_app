@@ -1,0 +1,9 @@
+streamlit
+torch
+transformers
+sentence-transformers
+faiss-cpu
+numpy
+pickle-mixin
+wordcloud
+matplotlib
