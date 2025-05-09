@@ -7,7 +7,3 @@ numpy==1.21.4
 pickle-mixin==1.0.2
 wordcloud==1.8.2.2
 matplotlib==3.4.3
-
-
-
-
