@@ -1,9 +1,8 @@
 streamlit==1.10.0
-torch==2.2.0
-transformers==4.16.0
+torch==1.10.2
+transformers==4.16.2
 sentence-transformers==2.2.0
 faiss-cpu==1.7.3
 numpy==1.21.4
-pickle-mixin==1.0.2
 wordcloud==1.8.2.2
 matplotlib==3.4.3
