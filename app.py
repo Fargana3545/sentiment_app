@@ -9,8 +9,9 @@ import numpy as np
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-# === Load Sentiment Analysis Model ===
-model_path = "models/sentiment_model" # ✅ updated path
+# === Load Sentiment Analysis Model from Hugging Face ===
+model_path = "Fargana/sentiment-model-v1"  # ✅ FIXED
+
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForSequenceClassification.from_pretrained(model_path)
 sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
@@ -97,7 +98,6 @@ if review_chunks:
     except ValueError as e:
         st.warning("⚠️ Not enough text to generate a word cloud. Please check your review data.")
 
-
 # === Clear Input Button ===
 if st.button("🧹 Clear Input"):
     st.experimental_rerun()
@@ -105,4 +105,5 @@ if st.button("🧹 Clear Input"):
 # === Footer ===
 st.markdown("---")
 st.caption("Developed with ❤️ for insightful review analysis.")
+
 
