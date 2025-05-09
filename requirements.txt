@@ -1,5 +1,5 @@
 streamlit==1.18.0
-torch==1.13.0
+torch==2.2.0
 transformers==4.25.1
 sentence-transformers==2.2.0
 faiss-cpu==1.7.3
