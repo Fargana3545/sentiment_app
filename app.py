@@ -9,9 +9,8 @@ import numpy as np
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-# === Load Sentiment Analysis Model from Hugging Face ===
-model_path = "Fargana/sentiment-model-v1"  # ✅ FIXED
-
+# === Load Sentiment Analysis Model ===
+model_path = "models/sentiment_model"  # ✅ updated path
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForSequenceClassification.from_pretrained(model_path)
 sentiment_pipeline = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
@@ -88,15 +87,11 @@ if user_input:
 if review_chunks:
     st.markdown("## 🎨 Word Cloud of Reviews")
     all_text = " ".join(review_chunks)
-
-    try:
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
-        fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
-        ax_wc.imshow(wordcloud, interpolation='bilinear')
-        ax_wc.axis("off")
-        st.pyplot(fig_wc)
-    except ValueError as e:
-        st.warning("⚠️ Not enough text to generate a word cloud. Please check your review data.")
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_text)
+    fig_wc, ax_wc = plt.subplots(figsize=(10, 5))
+    ax_wc.imshow(wordcloud, interpolation='bilinear')
+    ax_wc.axis("off")
+    st.pyplot(fig_wc)
 
 # === Clear Input Button ===
 if st.button("🧹 Clear Input"):
@@ -105,5 +100,8 @@ if st.button("🧹 Clear Input"):
 # === Footer ===
 st.markdown("---")
 st.caption("Developed with ❤️ for insightful review analysis.")
+
+
+
 
 
